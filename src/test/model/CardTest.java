@@ -1,7 +1,7 @@
 package model;
 
 import org.junit.jupiter.api.*;
-import static org.junit.Assert.*;
+import static org.junit.jupiter.api.Assertions.*;;
 
 public class CardTest {
     Card c1;
@@ -19,8 +19,11 @@ public class CardTest {
     public void constructorTest() {
         assertEquals(c1.getTerm(), "C1Term");
         assertEquals(c1.getDfn(), "C1Definition");
+        assertEquals(c1.getDifficulty(), 0);
+
         assertEquals(c2.getTerm(), "C2Term");
         assertEquals(c2.getDfn(), "C2Definition");
+        assertEquals(c2.getDifficulty(), 0);
     }
 
     @Test
