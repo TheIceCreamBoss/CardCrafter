@@ -42,8 +42,12 @@ public class Set {
 
     // MODIFIES: this
     // EFFECTS: edits one Card's term or definition
-    public void editCard(int i, char s, String text) {
-
+    public void editCard(Card c, String s, String text) {
+        if (s.equals("t")) {
+            c.editTerm(text);
+        } else if (s.equals("t")) {
+            c.editDfn(text);
+        }
     }
 
     // MODIFIES: this
@@ -62,6 +66,8 @@ public class Set {
         return flashSet.size();
     }
 
-
-
+    // EFFECTS: returns Card at index i of flashSet
+    public Card getCardAt(int i) {
+        return flashSet.get(i);
+    }
 }

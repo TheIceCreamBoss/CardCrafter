@@ -24,6 +24,12 @@ public class Card {
         this.dfn = dfn;
     }
 
+    // MODIFIES: this
+    // EFFECTS: sets difficulty to the specified integer
+    public void editDifficulty(int d) {
+        difficulty = d;
+    }
+
     // EFFECTS: returns term
     public String getTerm() {
         return term;
