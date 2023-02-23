@@ -115,6 +115,10 @@ public class SetTest {
         s1.editCard(c3, "d", "newDfn3");
         s1.editCard(c3, "t", "newTerm3");
 
+        s1.editCard(c1, "a", "newTerm1");
+        s1.editCard(c1, "b", "newDfn1");
+        s1.editCard(c2, "c", "newTerm2");
+
         assertEquals(s1.getCardAt(0).getTerm(), "newTerm1");
         assertEquals(s1.getCardAt(0).getDfn(), "dfn1");
         assertEquals(s1.getCardAt(1).getTerm(), "term2");
