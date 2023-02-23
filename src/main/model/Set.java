@@ -19,7 +19,6 @@ public class Set {
         flashSet.add(c);
     }
 
-
     // REQUIRES: Card to be in the flashSet
     // MODIFIES: this
     // EFFECTS: removes the specified card from flashSet
@@ -40,6 +39,7 @@ public class Set {
         }
     }
 
+    // REQUIRES: Card to be in the flashSet
     // MODIFIES: this
     // EFFECTS: edits one Card's term or definition
     public void editCard(Card c, String s, String text) {
@@ -66,6 +66,7 @@ public class Set {
         return flashSet.size();
     }
 
+    // REQUIRES: 0 <= i && i < flashSet.size()
     // EFFECTS: returns Card at index i of flashSet
     public Card getCardAt(int i) {
         return flashSet.get(i);

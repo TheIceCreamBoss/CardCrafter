@@ -11,43 +11,41 @@ public class SetEditor {
     private Scanner sc = new Scanner(System.in);
     private String action = "";
 
+    // MODIFIES: this
+    // EFFECTS: Runs the SetEditor
     public SetEditor(Set s) {
         current = s;
-        label:
         while (true) {
             chooseInput();
-            switch (action) {
-                case "new":
-                    create();
-                    break;
-                case "delete":
-                    delete();
-                    break;
-                case "edit":
-                    edit();
-                    break;
-                case "view":
-                    view();
-                    break;
-                case "shuffle":
-                    shuffle();
-                    break;
-                case END_WORD:
-                    end();
-                    break label;
-                default:
-                    System.out.println("Invalid input. Please try again.");
-                    break;
+            if (action.equals("new")) {
+                create();
+            } else if (action.equals("delete")) {
+                delete();
+            } else if (action.equals("edit")) {
+                edit();
+            } else if (action.equals("view")) {
+                view();
+            } else if (action.equals("shuffle")) {
+                shuffle();
+            } else if (action.equals(END_WORD)) {
+                end();
+                break;
+            } else {
+                System.out.println("Invalid input. Please try again.");
             }
         }
     }
 
+    // MODIFIES: this
+    // EFFECTS: asks the user for a chosen input
     private void chooseInput() {
         System.out.println("Choose an action from available inputs:");
         System.out.println("new, delete, edit, view, shuffle, end");
         action = sc.nextLine();
     }
 
+    // MODIFIES: this
+    // EFFECTS: creates a new Card in Set
     private void create() {
         System.out.println("Creating New Card...");
         System.out.println("Term of New Card:");
@@ -59,13 +57,21 @@ public class SetEditor {
         System.out.println("Card Added.");
     }
 
+    // MODIFIES: this
+    // EFFECTS: deletes a Card in Set
     private void delete() {
         System.out.println("Current Set: ");
         view();
 
         System.out.println("Enter the index of Card you wish to delete:");
-        int index = sc.nextInt();
-        sc.nextLine();
+        int index = 0;
+        try {
+            index = Integer.parseInt(sc.nextLine());
+        } catch (NumberFormatException e) {
+            e.printStackTrace();
+            index = -1;
+        }
+
         if (0 <= index && index <= current.getLength() - 1) {
             current.removeFromSet(current.getCardAt(index));
             System.out.println("Card Removed.");
@@ -76,13 +82,20 @@ public class SetEditor {
         view();
     }
 
+    // MODIFIES: this
+    // EFFECTS: edits a Card in Set
+    @SuppressWarnings("methodlength")
     private void edit() {
         System.out.println("Current Set: ");
         view();
-
         System.out.println("Enter the index of Card you wish to edit:");
-        int index = sc.nextInt();
-        sc.nextLine();
+        int index = 0;
+        try {
+            index = Integer.parseInt(sc.nextLine());
+        } catch (NumberFormatException e) {
+            e.printStackTrace();
+            index = -1;
+        }
         if (0 <= index && index <= current.getLength() - 1) {
             System.out.println("Editing the Term or Definition?");
             String str = sc.nextLine();
@@ -100,6 +113,7 @@ public class SetEditor {
         view();
     }
 
+    // EFFECTS: prints all Cards in Set
     private void view() {
         System.out.println("--------------------");
         System.out.println("Terms - Definitions");
@@ -109,12 +123,15 @@ public class SetEditor {
         System.out.println("--------------------");
     }
 
+    // MODIFIES: this
+    // EFFECTS: shuffles the indexes of Cards in Set
     private void shuffle() {
         System.out.println("Shuffling Set...");
         current.shuffleSet();
         view();
     }
 
+    // EFFECTS: prints the end message
     private void end() {
         System.out.println("Exiting Card Editor...");
     }

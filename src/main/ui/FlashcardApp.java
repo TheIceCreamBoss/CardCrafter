@@ -12,39 +12,38 @@ public class FlashcardApp {
     private Scanner sc = new Scanner(System.in);
     private String action = "";
 
+    // MODIFIES: this
+    // EFFECTS: Runs the Flashcard App
     public FlashcardApp() {
-        label:
         while (true) {
             chooseInput();
-            switch (action) {
-                case "new":
-                    create();
-                    break;
-                case "delete":
-                    delete();
-                    break;
-                case "edit":
-                    edit();
-                    break;
-                case "view":
-                    view();
-                    break;
-                case END_WORD:
-                    end();
-                    break label;
-                default:
-                    System.out.println("Invalid input. Please try again.");
-                    break;
+            if (action.equals("new")) {
+                create();
+            } else if (action.equals("delete")) {
+                delete();
+            } else if (action.equals("edit")) {
+                edit();
+            } else if (action.equals("view")) {
+                view();
+            } else if (action.equals(END_WORD)) {
+                end();
+                break;
+            } else {
+                System.out.println("Invalid input. Please try again.");
             }
         }
     }
 
+    // MODIFIES: this
+    // EFFECTS: asks the user for a chosen input
     private void chooseInput() {
         System.out.println("Choose an action from available inputs:");
         System.out.println("new, delete, edit, view, end");
         action = sc.nextLine();
     }
 
+    // MODIFIES: this
+    // EFFECTS: creates a new Set in collection
     private void create() {
         System.out.println("Creating New Set...");
         System.out.println("Name of New Set:");
@@ -57,6 +56,8 @@ public class FlashcardApp {
         }
     }
 
+    // MODIFIES: this
+    // EFFECTS: deletes a Set in collection
     private void delete() {
         System.out.println("Enter the name of Set you wish to delete:");
         String name = sc.nextLine();
@@ -69,6 +70,8 @@ public class FlashcardApp {
         }
     }
 
+    // MODIFIES: this
+    // EFFECTS: edits a Set in collection
     private void edit() {
         System.out.println("Enter the name of Set you wish to edit:");
         String name = sc.nextLine();
@@ -81,6 +84,7 @@ public class FlashcardApp {
         }
     }
 
+    // EFFECTS: prints the Sets in collection
     private void view() {
         System.out.println("--------------------");
         System.out.println("Your Sets:");
@@ -92,6 +96,7 @@ public class FlashcardApp {
         System.out.println("--------------------");
     }
 
+    // EFFECTS: prints the end message
     private void end() {
         System.out.println("Shutting Down...");
     }
