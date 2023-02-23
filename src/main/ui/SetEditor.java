@@ -27,6 +27,8 @@ public class SetEditor {
                 view();
             } else if (action.equals("shuffle")) {
                 shuffle();
+            } else if (action.equals("rename")) {
+                rename();
             } else if (action.equals(END_WORD)) {
                 end();
                 break;
@@ -40,7 +42,7 @@ public class SetEditor {
     // EFFECTS: asks the user for a chosen input
     private void chooseInput() {
         System.out.println("Choose an action from available inputs:");
-        System.out.println("new, delete, edit, view, shuffle, end");
+        System.out.println("new, delete, edit, view, shuffle, rename, end");
         action = sc.nextLine();
     }
 
@@ -129,6 +131,15 @@ public class SetEditor {
         System.out.println("Shuffling Set...");
         current.shuffleSet();
         view();
+    }
+
+    // MODIFIES: this
+    // EFFECTS: renames the Set
+    private void rename() {
+        System.out.println("Current Name of Set: " + current.getName());
+        System.out.println("New Name of Set:");
+        String name = sc.nextLine();
+        current.rename(name);
     }
 
     // EFFECTS: prints the end message
