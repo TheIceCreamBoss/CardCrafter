@@ -24,9 +24,11 @@ I feel like adding an engaging way or an alternative way to learn would improve 
 
 ### User Stories:
 
-- As a user, I want to be able to add a flashcard to the set
+- As a user, I want to be able to add multiple flashcards to the set
 - As a user, I want to be able to remove a flashcard from the set
 - As a user, I want to be able to view preexisting flashcards in the set
 - As a user, I want to be able to edit a preexisting flashcard in the set
+- As a user, I want to be able to rename a preexisting set
+- As a user, I want to be able to add multiple set to a set collection
 - As a user, I want to be able to use a set of flashcards and play a speed mini-game.
 - As a user, I want to be able to see by previous scores in the mini-game.

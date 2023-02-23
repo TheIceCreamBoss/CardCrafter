@@ -45,7 +45,7 @@ public class Set {
     public void editCard(Card c, String s, String text) {
         if (s.equals("t")) {
             c.editTerm(text);
-        } else if (s.equals("t")) {
+        } else if (s.equals("d")) {
             c.editDfn(text);
         }
     }

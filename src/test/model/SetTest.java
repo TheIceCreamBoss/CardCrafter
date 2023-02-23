@@ -97,4 +97,31 @@ public class SetTest {
         s1.rename("S1NewNewName");
         assertEquals(s1.getName(), "S1NewNewName");
     }
+
+    @Test
+    public void editTest() {
+        Card c1 = new Card("term1", "dfn1");
+        Card c2 = new Card("term2", "dfn2");
+        Card c3 = new Card("term3", "dfn3");
+        Card c4 = new Card("term4", "dfn4");
+
+        s1.addToSet(c1);
+        s1.addToSet(c2);
+        s1.addToSet(c3);
+        s1.addToSet(c4);
+
+        s1.editCard(c1, "t", "newTerm1");
+        s1.editCard(c2, "d", "newDfn2");
+        s1.editCard(c3, "d", "newDfn3");
+        s1.editCard(c3, "t", "newTerm3");
+
+        assertEquals(s1.getCardAt(0).getTerm(), "newTerm1");
+        assertEquals(s1.getCardAt(0).getDfn(), "dfn1");
+        assertEquals(s1.getCardAt(1).getTerm(), "term2");
+        assertEquals(s1.getCardAt(1).getDfn(), "newDfn2");
+        assertEquals(s1.getCardAt(2).getTerm(), "newTerm3");
+        assertEquals(s1.getCardAt(2).getDfn(), "newDfn3");
+        assertEquals(s1.getCardAt(3).getTerm(), "term4");
+        assertEquals(s1.getCardAt(3).getDfn(), "dfn4");
+    }
 }
