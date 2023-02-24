@@ -5,6 +5,7 @@ import model.Set;
 
 import java.util.Scanner;
 
+// App that deals with UI of organization of Cards in a Set
 public class SetEditor {
     private static final String END_WORD = "end";
     private Set current;
@@ -84,7 +85,7 @@ public class SetEditor {
         view();
     }
 
-    // MODIFIES: this
+    // MODIFIES: this, Card
     // EFFECTS: edits a Card in Set
     @SuppressWarnings("methodlength")
     private void edit() {

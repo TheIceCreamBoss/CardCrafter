@@ -3,6 +3,7 @@ package model;
 import java.util.Random;
 import java.util.ArrayList;
 
+// represents a Flashcard Set with Cards
 public class Set {
     private ArrayList<Card> flashSet;
     private String name;

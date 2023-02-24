@@ -2,6 +2,7 @@ package model;
 
 import java.util.ArrayList;
 
+// represents a Collections of Sets
 public class SetCollection {
     private ArrayList<Set> myLists;
 

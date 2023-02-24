@@ -1,5 +1,6 @@
 package model;
 
+// represents a Card in Flashcard Set
 public class Card {
     private String term;
     private String dfn;

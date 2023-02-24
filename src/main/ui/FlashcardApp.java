@@ -6,6 +6,7 @@ import model.SetCollection;
 import java.util.ArrayList;
 import java.util.Scanner;
 
+// App that deals with UI of organization of Sets
 public class FlashcardApp {
     private static final String END_WORD = "end";
     private SetCollection program = new SetCollection();
@@ -70,7 +71,7 @@ public class FlashcardApp {
         }
     }
 
-    // MODIFIES: this
+    // MODIFIES: this, Set
     // EFFECTS: edits a Set in collection
     private void edit() {
         System.out.println("Enter the name of Set you wish to edit:");
