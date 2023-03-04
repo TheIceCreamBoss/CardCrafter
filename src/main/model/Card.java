@@ -1,7 +1,10 @@
 package model;
 
+import org.json.JSONObject;
+import persistence.Writable;
+
 // represents a Card in Flashcard Set
-public class Card {
+public class Card implements Writable {
     private String term;
     private String dfn;
     private int difficulty;
@@ -44,5 +47,15 @@ public class Card {
     // EFFECTS: returns difficulty
     public int getDifficulty() {
         return difficulty;
+    }
+
+    // EFFECTS: returns Card as a JSON object
+    @Override
+    public JSONObject toJson() {
+        JSONObject json = new JSONObject();
+        json.put("term", term);
+        json.put("dfn", dfn);
+        json.put("diff", difficulty);
+        return json;
     }
 }

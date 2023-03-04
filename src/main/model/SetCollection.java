@@ -1,9 +1,13 @@
 package model;
 
+import org.json.JSONArray;
+import org.json.JSONObject;
+import persistence.Writable;
+
 import java.util.ArrayList;
 
 // represents a Collections of Sets
-public class SetCollection {
+public class SetCollection implements Writable {
     private ArrayList<Set> myLists;
 
     // EFFECTS: constructs a new ArrayList of Sets of Cards
@@ -61,5 +65,24 @@ public class SetCollection {
     // EFFECTS: return at index of i in collection
     public Set getSetAt(int i) {
         return myLists.get(i);
+    }
+
+    // EFFECTS: returns SetCollection as a JSON object
+    @Override
+    public JSONObject toJson() {
+        JSONObject json = new JSONObject();
+        json.put("sets", setsToJson());
+        return json;
+    }
+
+    // EFFECTS: returns Sets in this SetCollection as a JSON array
+    private JSONArray setsToJson() {
+        JSONArray jsonArray = new JSONArray();
+
+        for (Set s : myLists) {
+            jsonArray.put(s.toJson());
+        }
+
+        return jsonArray;
     }
 }

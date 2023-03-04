@@ -2,20 +2,34 @@ package ui;
 
 import model.Set;
 import model.SetCollection;
+import persistence.JsonReader;
+import persistence.JsonWriter;
 
+import java.io.FileNotFoundException;
+import java.io.IOException;
 import java.util.ArrayList;
 import java.util.Scanner;
 
 // App that deals with UI of organization of Sets
 public class FlashcardApp {
     private static final String END_WORD = "end";
-    private SetCollection program = new SetCollection();
+    private static final String JSON_STORE = "./data/lists.json";
+    private SetCollection program;
     private Scanner sc = new Scanner(System.in);
     private String action = "";
+    private JsonWriter jsonWriter;
+    private JsonReader jsonReader;
 
-    // MODIFIES: this
+    // EFFECTS: Constructs Flashcard App and runs it
+    public FlashcardApp() throws FileNotFoundException {
+        program = new SetCollection();
+        jsonWriter = new JsonWriter(JSON_STORE);
+        jsonReader = new JsonReader(JSON_STORE);
+        run();
+    }
+
     // EFFECTS: Runs the Flashcard App
-    public FlashcardApp() {
+    private void run() {
         while (true) {
             chooseInput();
             if (action.equals("new")) {
@@ -26,6 +40,10 @@ public class FlashcardApp {
                 edit();
             } else if (action.equals("view")) {
                 view();
+            } else if (action.equals("save")) {
+                saveSets();
+            } else if (action.equals("load")) {
+                loadSets();
             } else if (action.equals(END_WORD)) {
                 end();
                 break;
@@ -39,7 +57,7 @@ public class FlashcardApp {
     // EFFECTS: asks the user for a chosen input
     private void chooseInput() {
         System.out.println("Choose an action from available inputs:");
-        System.out.println("new, delete, edit, view, end");
+        System.out.println("new, delete, edit, view, save, load, end");
         action = sc.nextLine();
     }
 
@@ -100,5 +118,28 @@ public class FlashcardApp {
     // EFFECTS: prints the end message
     private void end() {
         System.out.println("Shutting Down...");
+    }
+
+    // EFFECTS: saves Sets to file
+    private void saveSets() {
+        try {
+            jsonWriter.open();
+            jsonWriter.write(program);
+            jsonWriter.close();
+            System.out.println("Saved current Sets to " + JSON_STORE);
+        } catch (FileNotFoundException e) {
+            System.out.println("Unable to write to file: " + JSON_STORE);
+        }
+    }
+
+    // MODIFIES: this
+    // EFFECTS: loads Sets from file
+    private void loadSets() {
+        try {
+            program = jsonReader.read();
+            System.out.println("Loaded in Sets from " + JSON_STORE);
+        } catch (IOException e) {
+            System.out.println("Unable to read from file: " + JSON_STORE);
+        }
     }
 }

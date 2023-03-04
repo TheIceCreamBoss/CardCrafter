@@ -1,10 +1,14 @@
 package model;
 
+import org.json.JSONArray;
+import org.json.JSONObject;
+import persistence.Writable;
+
 import java.util.Random;
 import java.util.ArrayList;
 
 // represents a Flashcard Set with Cards
-public class Set {
+public class Set implements Writable {
     private ArrayList<Card> flashSet;
     private String name;
 
@@ -71,5 +75,25 @@ public class Set {
     // EFFECTS: returns Card at index i of flashSet
     public Card getCardAt(int i) {
         return flashSet.get(i);
+    }
+
+    // EFFECTS: returns Set as a JSON object
+    @Override
+    public JSONObject toJson() {
+        JSONObject json = new JSONObject();
+        json.put("name", name);
+        json.put("cards", setToJson());
+        return json;
+    }
+
+    // EFFECTS: returns Cards in this Set as a JSON array
+    private JSONArray setToJson() {
+        JSONArray jsonArray = new JSONArray();
+
+        for (Card c : flashSet) {
+            jsonArray.put(c.toJson());
+        }
+
+        return jsonArray;
     }
 }
