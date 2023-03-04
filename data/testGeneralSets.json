@@ -1,0 +1,26 @@
+{"sets": [
+    {
+        "cards": [
+            {
+                "term": "1T",
+                "diff": 5,
+                "dfn": "1D"
+            },
+            {
+                "term": "2T",
+                "diff": 3,
+                "dfn": "2D"
+            },
+            {
+                "term": "3T",
+                "diff": 1,
+                "dfn": "3D"
+            }
+        ],
+        "name": "1"
+    },
+    {
+        "cards": [],
+        "name": "2"
+    }
+]}

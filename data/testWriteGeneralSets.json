@@ -1,0 +1,29 @@
+{"sets": [
+    {
+        "cards": [
+            {
+                "term": "Term1",
+                "diff": 0,
+                "dfn": "Dfn1"
+            },
+            {
+                "term": "Term2",
+                "diff": 5,
+                "dfn": "Dfn2"
+            }
+        ],
+        "name": "Set1"
+    },
+    {
+        "cards": [],
+        "name": "Set2"
+    },
+    {
+        "cards": [{
+            "term": "NewTerm",
+            "diff": 0,
+            "dfn": "NewDfn"
+        }],
+        "name": "Set3"
+    }
+]}
