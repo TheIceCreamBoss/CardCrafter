@@ -11,6 +11,8 @@ import javax.swing.event.AncestorListener;
 import java.awt.*;
 import java.awt.event.ActionEvent;
 import java.awt.event.ActionListener;
+import java.awt.event.WindowAdapter;
+import java.awt.event.WindowEvent;
 import java.io.FileNotFoundException;
 import java.io.IOException;
 import java.util.ArrayList;
@@ -18,16 +20,17 @@ import java.util.Scanner;
 
 // App that deals with UI of organization of Sets
 public class FlashcardApp extends JFrame {
-    private static final int WIDTH = 1024;
-    private static final int HEIGHT = 768;
-    private static final String JSON_STORE = "./data/lists.json";
+    private static final int WIDTH = 640;
+    private static final int HEIGHT = 480;
+
     private ArrayList<JButton> menu = new ArrayList<>();
     private JPanel currentPanel;
+    private JPanel menuPanel;
+    private FlashcardApp fa = this;
 
     private SetCollection program;
 
-    private Scanner sc = new Scanner(System.in);
-
+    private static final String JSON_STORE = "./data/lists.json";
     private JsonWriter jsonWriter;
     private JsonReader jsonReader;
 
@@ -44,7 +47,18 @@ public class FlashcardApp extends JFrame {
     private void initializeWindow() {
         setLayout(new BorderLayout());
         setMinimumSize(new Dimension(WIDTH, HEIGHT));
-        setDefaultCloseOperation(JFrame.EXIT_ON_CLOSE);
+        addWindowListener(new WindowAdapter() {
+            public void windowClosing(WindowEvent we) {
+                int result = JOptionPane.showConfirmDialog(fa,
+                        "Do you want to Exit ?", "Exit Confirmation : ",
+                        JOptionPane.YES_NO_OPTION);
+                if (result == JOptionPane.YES_OPTION) {
+                    setDefaultCloseOperation(JFrame.EXIT_ON_CLOSE);
+                } else if (result == JOptionPane.NO_OPTION) {
+                    setDefaultCloseOperation(JFrame.DO_NOTHING_ON_CLOSE);
+                }
+            }
+        });
         setLocationRelativeTo(null);
         setVisible(true);
         setLayout(new GridLayout(1,1));
@@ -60,12 +74,16 @@ public class FlashcardApp extends JFrame {
         JButton viewButton = new JButton("View Set(s)");
         JButton saveButton = new JButton("Save");
         JButton loadButton = new JButton("Load");
+        JButton creditButton = new JButton("Credits");
+        JButton exitButton = new JButton("Exit");
         menu.add(newButton);
         menu.add(deleteButton);
         menu.add(editButton);
         menu.add(viewButton);
         menu.add(saveButton);
         menu.add(loadButton);
+        menu.add(creditButton);
+        menu.add(exitButton);
     }
 
     // EFFECTS: returns a back button
@@ -88,11 +106,13 @@ public class FlashcardApp extends JFrame {
         jsonReader = new JsonReader(JSON_STORE);
     }
 
+    // MODIFIES: this
+    // EFFECTS: creates a menu panel
     private void menuPanel() {
         JPanel menuPanel = new JPanel();
         currentPanel = menuPanel;
         add(menuPanel);
-        menuPanel.setLayout(new GridLayout(3,2, 30, 30));
+        menuPanel.setLayout(new GridLayout(4,2, 30, 30));
         for (JButton b : menu) {
             menuPanel.add(b);
             b.addActionListener(new ActionListener() {
@@ -105,11 +125,13 @@ public class FlashcardApp extends JFrame {
         menuPanel.setVisible(true);
     }
 
+    // MODIFIES: this
+    // EFFECTS: creates a view panel
     private void viewPanel() {
         JPanel viewPanel = new JPanel();
         currentPanel = viewPanel;
         add(viewPanel);
-        viewPanel.setLayout(new GridLayout(0,2,50,50));
+        viewPanel.setLayout(new GridLayout(0,2,30,30));
         ArrayList<Integer> l = program.getLengths();
         ArrayList<String> n = program.getNames();
         for (int i = 0; i < program.getSize(); i++) {
@@ -124,6 +146,8 @@ public class FlashcardApp extends JFrame {
         viewPanel.setVisible(true);
     }
 
+    // MODIFIES: this
+    // EFFECTS: creates a new set panel
     private void createPanel() {
         JPanel createPanel = new JPanel();
         currentPanel = createPanel;
@@ -135,15 +159,21 @@ public class FlashcardApp extends JFrame {
         back.addActionListener(new ActionListener() {
             @Override
             public void actionPerformed(ActionEvent e) {
-                Set s = new Set(input.getText());
-                program.addSet(s);
-                view();
+                if (program.findIndex(input.getText()) != -1) {
+                    JOptionPane.showMessageDialog(createPanel,"Sets may not have duplicate names.");
+                } else {
+                    Set s = new Set(input.getText());
+                    program.addSet(s);
+                    view();
+                }
             }
         });
         createPanel.add(back);
         createPanel.setVisible(true);
     }
 
+    // MODIFIES: this
+    // EFFECTS: creates a deletion panel
     private void deletePanel() {
         JPanel deletePanel = new JPanel();
         currentPanel = deletePanel;
@@ -164,6 +194,39 @@ public class FlashcardApp extends JFrame {
         deletePanel.setVisible(true);
     }
 
+    // MODIFIES: this
+    // EFFECTS: creates an edit panel
+    private void editPanel() {
+        JPanel editPanel = new JPanel();
+        currentPanel = editPanel;
+        add(editPanel);
+        editPanel.setLayout(new GridLayout(0,1,50,50));
+        for (String name : program.getNames()) {
+            JButton n = new JButton(name);
+            n.addActionListener(new ActionListener() {
+                @Override
+                public void actionPerformed(ActionEvent e) {
+                    setVisible(false);
+                    new SetEditor(program.getSetAt(program.findIndex(name)), fa);
+                }
+            });
+            editPanel.add(n);
+        }
+        editPanel.add(backButton());
+        editPanel.setVisible(true);
+    }
+
+    // MODIFIES: this
+    // EFFECTS: creates a credits panel
+    private void creditPanel() {
+        JPanel creditPanel = new JPanel();
+        currentPanel = creditPanel;
+        add(creditPanel);
+        creditPanel.setLayout(new GridLayout(0,1,30,30));
+        creditPanel.add(backButton());
+        creditPanel.setVisible(true);
+    }
+
     // EFFECTS: calls the method corresponding to the button
     private void parseAction(JButton b) {
         if (b.getText().equals("New Set")) {
@@ -178,6 +241,10 @@ public class FlashcardApp extends JFrame {
             saveSets();
         } else if (b.getText().equals("Load")) {
             loadSets();
+        } else if (b.getText().equals("Credits")) {
+            credit();
+        } else if (b.getText().equals("Exit")) {
+            exit();
         }
     }
 
@@ -215,15 +282,9 @@ public class FlashcardApp extends JFrame {
     // MODIFIES: this, Set
     // EFFECTS: edits a Set in collection
     private void edit() {
-        System.out.println("Enter the name of Set you wish to edit:");
-        String name = sc.nextLine();
-        int index = program.findIndex(name);
-        if (index == -1) {
-            System.out.println("Invalid Name.");
-        } else {
-            System.out.println("Opening Card Editor...");
-            new SetEditor(program.getSetAt(index));
-        }
+        currentPanel.setVisible(false);
+        remove(currentPanel);
+        editPanel();
     }
 
     // EFFECTS: prints the Sets in collection
@@ -231,6 +292,27 @@ public class FlashcardApp extends JFrame {
         currentPanel.setVisible(false);
         remove(currentPanel);
         viewPanel();
+    }
+
+    // EFFECTS: shows the credit screen
+    private void credit() {
+        currentPanel.setVisible(false);
+        remove(currentPanel);
+        creditPanel();
+    }
+
+    // EFFECTS: shows the user a prompt to exit the program
+    private void exit() {
+        int result = JOptionPane.showConfirmDialog(fa,
+                "Do you want to Exit ?", "Exit Confirmation : ",
+                JOptionPane.YES_NO_OPTION);
+        if (result == JOptionPane.YES_OPTION) {
+            setDefaultCloseOperation(JFrame.EXIT_ON_CLOSE);
+            dispose();
+        } else if (result == JOptionPane.NO_OPTION) {
+            setDefaultCloseOperation(JFrame.DO_NOTHING_ON_CLOSE);
+            returnHome();
+        }
     }
 
     // EFFECTS: saves Sets to file
@@ -250,9 +332,16 @@ public class FlashcardApp extends JFrame {
     private void loadSets() {
         try {
             program = jsonReader.read();
-            JOptionPane.showMessageDialog(this,"Loaded in Sets from " + JSON_STORE);
+            JOptionPane.showMessageDialog(null,"Loaded in Sets from " + JSON_STORE);
         } catch (IOException e) {
-            JOptionPane.showMessageDialog(this,"Unable to read from file: " + JSON_STORE);
+            JOptionPane.showMessageDialog(null,"Unable to read from file: " + JSON_STORE);
         }
+    }
+
+    // MODIFIES: this
+    // EFFECTS: shows the JFrame Window and sets the panel to menu panel
+    public void showWindow() {
+        setVisible(true);
+        returnHome();
     }
 }

@@ -34,3 +34,11 @@ I feel like adding an engaging way or an alternative way to learn would improve 
 - As a user, I want to be able to be able to load my Sets, if I choose to.
 - As a user, I want to be able to use a set of flashcards and play a speed mini-game.
 - As a user, I want to be able to see by previous scores in the mini-game.
+
+# Instructions for Grader
+
+- You can generate the first required action related to adding Xs to a Y by ...
+- You can generate the second required action related to adding Xs to a Y by ...
+- You can locate my visual component by clicking the credits button in the main menu.
+- You can save the state of my application by clicking the save button in the main menu.
+- You can reload the state of my application by clicking the load button in the main menu.
