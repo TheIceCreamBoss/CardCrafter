@@ -37,8 +37,12 @@ I feel like adding an engaging way or an alternative way to learn would improve 
 
 # Instructions for Grader
 
-- You can generate the first required action related to adding Xs to a Y by ...
-- You can generate the second required action related to adding Xs to a Y by ...
+- You can generate the first required action related to adding Xs to a Y by clicking new set and entering a new to
+generate a new set.
+- You can generate the second required action related to adding Xs to a Y by clicking edit set, and choosing a set, and
+shuffle cards in that set.
+- You can generate the third required action related to adding Xs to a Y by clicking edit set, and edit card, and pick a
+card you wish to edit, and enter the new desired text.
 - You can locate my visual component by clicking the credits button in the main menu.
 - You can save the state of my application by clicking the save button in the main menu.
 - You can reload the state of my application by clicking the load button in the main menu.

@@ -20,12 +20,10 @@ public class SetEditor extends JFrame {
 
     private ArrayList<JButton> menu = new ArrayList<>();
     private JPanel currentPanel;
+    private JPanel menuPanel;
 
     private Set current;
     private FlashcardApp editor;
-
-    private Scanner sc = new Scanner(System.in);
-    private String action = "";
 
     // MODIFIES: this
     // EFFECTS: Runs the SetEditor
@@ -34,6 +32,7 @@ public class SetEditor extends JFrame {
         current = s;
         editor = fa;
         initializeWindow();
+        initializeMenu();
         menuPanel();
     }
 
@@ -47,6 +46,22 @@ public class SetEditor extends JFrame {
         setVisible(true);
         setLayout(new GridLayout(1,1));
         addButtons();
+    }
+
+    // MODIFIES: this
+    // EFFECTS: initializes the main menu panel
+    private void initializeMenu() {
+        menuPanel = new JPanel();
+        menuPanel.setLayout(new GridLayout(3,2, 30, 30));
+        for (JButton b : menu) {
+            menuPanel.add(b);
+            b.addActionListener(new ActionListener() {
+                @Override
+                public void actionPerformed(ActionEvent e) {
+                    parseAction(b);
+                }
+            });
+        }
     }
 
     // MODIFIES: this
@@ -94,21 +109,10 @@ public class SetEditor extends JFrame {
     }
 
     // MODIFIES: this
-    // EFFECTS: creates a menu panel
+    // EFFECTS: shows the menu panel
     private void menuPanel() {
-        JPanel menuPanel = new JPanel();
         currentPanel = menuPanel;
         add(menuPanel);
-        menuPanel.setLayout(new GridLayout(3,2, 30, 30));
-        for (JButton b : menu) {
-            menuPanel.add(b);
-            b.addActionListener(new ActionListener() {
-                @Override
-                public void actionPerformed(ActionEvent e) {
-                    parseAction(b);
-                }
-            });
-        }
         menuPanel.setVisible(true);
     }
 

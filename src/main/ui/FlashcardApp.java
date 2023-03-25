@@ -39,6 +39,7 @@ public class FlashcardApp extends JFrame {
         super("Flashcard App");
         initializeWindow();
         initializeFields();
+        initializeMenu();
         menuPanel();
     }
 
@@ -107,11 +108,9 @@ public class FlashcardApp extends JFrame {
     }
 
     // MODIFIES: this
-    // EFFECTS: creates a menu panel
-    private void menuPanel() {
-        JPanel menuPanel = new JPanel();
-        currentPanel = menuPanel;
-        add(menuPanel);
+    // EFFECTS: initializes the main menu panel
+    private void initializeMenu() {
+        menuPanel = new JPanel();
         menuPanel.setLayout(new GridLayout(4,2, 30, 30));
         for (JButton b : menu) {
             menuPanel.add(b);
@@ -122,6 +121,13 @@ public class FlashcardApp extends JFrame {
                 }
             });
         }
+    }
+
+    // MODIFIES: this
+    // EFFECTS: shows the menu panel
+    private void menuPanel() {
+        currentPanel = menuPanel;
+        add(menuPanel);
         menuPanel.setVisible(true);
     }
 
@@ -223,6 +229,8 @@ public class FlashcardApp extends JFrame {
         currentPanel = creditPanel;
         add(creditPanel);
         creditPanel.setLayout(new GridLayout(0,1,30,30));
+        ImageIcon image = new ImageIcon("./data/images/creator.png");
+        creditPanel.add(new JLabel(image));
         creditPanel.add(backButton());
         creditPanel.setVisible(true);
     }
