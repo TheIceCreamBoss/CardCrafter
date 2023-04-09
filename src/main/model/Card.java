@@ -14,24 +14,28 @@ public class Card implements Writable {
         this.term = term;
         this.dfn = dfn;
         difficulty = 0;
+        EventLog.getInstance().logEvent(new Event("New Card Constructed."));
     }
 
     // MODIFIES: this
     // EFFECTS: sets term to the specified string
     public void editTerm(String term) {
         this.term = term;
+        EventLog.getInstance().logEvent(new Event("Card Term Edited to \"" + term + "\"."));
     }
 
     // MODIFIES: this
     // EFFECTS: sets dfn to the specified string
     public void editDfn(String dfn) {
         this.dfn = dfn;
+        EventLog.getInstance().logEvent(new Event("Card Definition Edited to \"" + term + "\"."));
     }
 
     // MODIFIES: this
     // EFFECTS: sets difficulty to the specified integer
     public void editDifficulty(int d) {
         difficulty = d;
+        EventLog.getInstance().logEvent(new Event("Card Difficulty Edited to \"" + term + "\"."));
     }
 
     // EFFECTS: returns term

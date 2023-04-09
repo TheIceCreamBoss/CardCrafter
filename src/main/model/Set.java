@@ -16,12 +16,14 @@ public class Set implements Writable {
     public Set(String n) {
         flashSet = new ArrayList<Card>();
         name = n;
+        EventLog.getInstance().logEvent(new Event("New Set Constructed with name \"" + name + "\"."));
     }
 
     // MODIFIES: this
     // EFFECTS: adds a new card to the last index of flashSet
     public void addToSet(Card c) {
         flashSet.add(c);
+        EventLog.getInstance().logEvent(new Event("New Card added to Set \"" + name + "\"."));
     }
 
     // REQUIRES: Card to be in the flashSet
@@ -29,6 +31,7 @@ public class Set implements Writable {
     // EFFECTS: removes the specified card from flashSet
     public void removeFromSet(Card c) {
         flashSet.remove(c);
+        EventLog.getInstance().logEvent(new Event("Card removed from Set \"" + name + "\"."));
     }
 
     // MODIFIES: this
@@ -42,6 +45,7 @@ public class Set implements Writable {
             flashSet.set(i, temp1);
             flashSet.set(j, temp2);
         }
+        EventLog.getInstance().logEvent(new Event("Set \"" + getName() + "\" shuffled."));
     }
 
     // REQUIRES: Card to be in the flashSet
@@ -53,11 +57,13 @@ public class Set implements Writable {
         } else if (s.equals("d")) {
             c.editDfn(text);
         }
+        EventLog.getInstance().logEvent(new Event("Card edited in Set \"" + name + "\"."));
     }
 
     // MODIFIES: this
     // EFFECTS: sets name to the specified string
     public void rename(String n) {
+        EventLog.getInstance().logEvent(new Event("Set \"" + getName() + "\" renamed to \"" + n + "\"."));
         name = n;
     }
 

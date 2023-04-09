@@ -1,34 +1,30 @@
 {"sets": [
     {
         "cards": [],
-        "name": "t"
+        "name": ""
     },
     {
         "cards": [
             {
-                "term": "eifhne",
+                "term": "aa",
                 "diff": 0,
-                "dfn": "I love cheese"
+                "dfn": "sss"
             },
             {
-                "term": "evs",
+                "term": "ccce",
                 "diff": 0,
-                "dfn": "srv"
+                "dfn": "ee"
             },
             {
-                "term": "fff",
+                "term": "Card 1",
                 "diff": 0,
-                "dfn": "ff"
+                "dfn": "Card 2323"
             }
         ],
-        "name": "fff"
+        "name": "Set 1"
     },
     {
         "cards": [],
-        "name": "fffcff"
-    },
-    {
-        "cards": [],
-        "name": "csdvf"
+        "name": "Set 2"
     }
 ]}

@@ -1,5 +1,7 @@
 package ui;
 
+import model.EventLog;
+import model.Event;
 import model.Set;
 import model.SetCollection;
 import persistence.JsonReader;
@@ -55,6 +57,7 @@ public class FlashcardApp extends JFrame {
                         JOptionPane.YES_NO_OPTION);
                 if (result == JOptionPane.YES_OPTION) {
                     setDefaultCloseOperation(JFrame.EXIT_ON_CLOSE);
+                    printLog(EventLog.getInstance());
                 } else if (result == JOptionPane.NO_OPTION) {
                     setDefaultCloseOperation(JFrame.DO_NOTHING_ON_CLOSE);
                 }
@@ -317,6 +320,7 @@ public class FlashcardApp extends JFrame {
         if (result == JOptionPane.YES_OPTION) {
             setDefaultCloseOperation(JFrame.EXIT_ON_CLOSE);
             dispose();
+            printLog(EventLog.getInstance());
         } else if (result == JOptionPane.NO_OPTION) {
             setDefaultCloseOperation(JFrame.DO_NOTHING_ON_CLOSE);
             returnHome();
@@ -351,5 +355,12 @@ public class FlashcardApp extends JFrame {
     public void showWindow() {
         setVisible(true);
         returnHome();
+    }
+
+
+    public void printLog(EventLog el) {
+        for (Event next : el) {
+            System.out.println(next.toString());
+        }
     }
 }

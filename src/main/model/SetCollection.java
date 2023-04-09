@@ -19,13 +19,16 @@ public class SetCollection implements Writable {
     // EFFECTS: adds a new Set to myLists
     public void addSet(Set s) {
         myLists.add(s);
+        EventLog.getInstance().logEvent(new Event("New Set added with name \" " + s.getName() + "\"."));
     }
 
     // REQUIRES: 0 <= i && i < myLists.size()
     // MODIFIES: this
     // EFFECTS: adds a new Set to myLists
     public void deleteSet(int i) {
+        Set s = myLists.get(i);
         myLists.remove(i);
+        EventLog.getInstance().logEvent(new Event("Deleted Set added with name \" " + s.getName() + "\"."));
     }
 
     // EFFECTS: returns index of Set with specified name, or -1 if not in the list
@@ -72,6 +75,7 @@ public class SetCollection implements Writable {
     public JSONObject toJson() {
         JSONObject json = new JSONObject();
         json.put("sets", setsToJson());
+        EventLog.getInstance().logEvent(new Event("Stored current collection as JSON."));
         return json;
     }
 
