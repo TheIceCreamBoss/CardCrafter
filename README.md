@@ -46,3 +46,29 @@ card you wish to edit, and enter the new desired text.
 - You can locate my visual component by clicking the credits button in the main menu.
 - You can save the state of my application by clicking the save button in the main menu.
 - You can reload the state of my application by clicking the load button in the main menu.
+- 
+# Phase 4: Task 2
+
+Sun Apr 09 17:05:58 PDT 2023
+
+New Card Constructed.
+
+Sun Apr 09 17:05:58 PDT 2023
+
+New Card added to Set "Set1".
+
+Sun Apr 09 17:06:02 PDT 2023
+
+Card removed from Set "Set1".
+
+Sun Apr 09 17:06:03 PDT 2023
+
+Set "Set1" shuffled.
+
+Sun Apr 09 17:06:43 PDT 2023
+
+Card Difficulty Edited to "0".
+
+Sun Apr 09 17:06:43 PDT 2023
+
+Card Term Edited to "Term1".

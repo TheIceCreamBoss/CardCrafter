@@ -8,8 +8,6 @@ import persistence.JsonReader;
 import persistence.JsonWriter;
 
 import javax.swing.*;
-import javax.swing.event.AncestorEvent;
-import javax.swing.event.AncestorListener;
 import java.awt.*;
 import java.awt.event.ActionEvent;
 import java.awt.event.ActionListener;
@@ -18,7 +16,6 @@ import java.awt.event.WindowEvent;
 import java.io.FileNotFoundException;
 import java.io.IOException;
 import java.util.ArrayList;
-import java.util.Scanner;
 
 // App that deals with UI of organization of Sets
 public class FlashcardApp extends JFrame {
@@ -357,7 +354,7 @@ public class FlashcardApp extends JFrame {
         returnHome();
     }
 
-
+    // EFFECTS: prints out the list of events
     public void printLog(EventLog el) {
         for (Event next : el) {
             System.out.println(next.toString());
