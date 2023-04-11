@@ -72,3 +72,13 @@ Card Difficulty Edited to "0".
 Sun Apr 09 17:06:43 PDT 2023
 
 Card Term Edited to "Term1".
+
+# Phase 4: Task 3
+
+Overall, the classes I've created makes sense, but there are many places I could refactor the code.
+One thing that I could have implemented is making both my Set and SetCollection iterable. We learned this later in the
+course, and this design pattern perfectly matches the behaviour of my classes. Making Set and SetCollection iterable
+would have gotten rid of a lot of duplicate code, and made by program more cohesive. One other part of refactoring I
+could have done was to improve the GUI panels to have their own classes. Right now, the FlashCardApp class has high
+coupling, with several panel functions in the same class. It would make more sense to bring each panel into their
+own class, and reduce that coupling.
